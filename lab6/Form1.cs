@@ -48,16 +48,8 @@ namespace lab6
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFile = new OpenFileDialog();
-            if (openFile.ShowDialog() == DialogResult.OK)
-            {
-                My_Image = new Image<Bgr, byte>(openFile.FileName);
-                Image<Gray, byte> gray_image = My_Image.Convert<Gray, byte>();
-                pictureBox2.Image = gray_image.AsBitmap();
-                gray_image[0, 0]= new Gray(200);
+            pictureBox2.Image = Metode.convertToGray(My_Image).AsBitmap();
 
-            }
-          
 
         }
 
@@ -67,99 +59,49 @@ namespace lab6
             v.HistogramCtrl.GenerateHistograms(My_Image, 255);
             v.Show();
         }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string a = textBox1.Text;
+            float alfa = float.Parse(a);
+            a = textBox2.Text;
+            int beta = int.Parse(a);
+            pictureBox2.Image = Metode.BrightnessAndContrast(My_Image, alfa, beta).AsBitmap();
+            pictureBox2.Image = Metode.BrightnessAndContrast(My_Image, alfa, beta).AsBitmap();
+
+        }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFile = new OpenFileDialog();
-            if (openFile.ShowDialog() == DialogResult.OK)
-            {
-                My_Image = new Image<Bgr, byte>(openFile.FileName);
-                pictureBox3.Image = My_Image.ToBitmap();
-            }
+            pictureBox2.Image = Metode.Red(My_Image).AsBitmap();
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            output = new Image<Gray, byte>(My_Image.Width, My_Image.Height);
-            var tmp = My_Image.Convert<Gray, byte>();
-            for (int i =0; i<My_Image.Height;i++)
-            {
-                for(int j=0;j<My_Image.Width;j++)
-                {
-                    float a = (float)Convert.ToDouble(alfa.Text);
-                    int b = Convert.ToInt32(beta.Text);
-                    var val = a * tmp[i, j].Intensity + b;
-                    output[i, j] =  new Gray(val);
-                    //output[i, j] = new Bgr()
-                }
-            }
-            pictureBox3.Image = output.ToBitmap();
 
-        }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            Image<Bgr, byte> resized_image;
-            resized_image = My_Image.Resize(256, 128, Emgu.CV.CvEnum.Inter.Nearest);
-            pictureBox4.Image = resized_image.AsBitmap();
+            pictureBox2.Image = Metode.Resize(My_Image, 0.2).AsBitmap();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Image<Bgr, byte> rotate_image;
-            rotate_image = My_Image.Rotate(90, new Bgr(255, 255, 255));
-            pictureBox5.Image = rotate_image.AsBitmap();
+            pictureBox2.Image = Metode.Rotate(My_Image, 180).AsBitmap();
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Image<Bgr, byte> gamma__Picture;
-            var gamma = Convert.ToDouble(numericUpDown1.Value);
-            gamma__Picture = My_Image;
-            gamma__Picture._GammaCorrect(gamma);
-            pictureBox6.Image = gamma__Picture.AsBitmap();
+            pictureBox2.Image = Metode.Gamma(My_Image, (int)numericUpDown1.Value).AsBitmap();
         }
 
-        private void button9_Click(object sender, EventArgs e)
+        private async void button9_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (ofd.ShowDialog() == DialogResult.OK)
+            List<Bitmap> listImagesReturn = Metode.videoPlay();
+            double Fps_val = Metode.fpsReturn();
+
+            for (int i = 0; i < listImagesReturn.Count; i++)
             {
-                capture = new VideoCapture(ofd.FileName);
-                Mat m = new Mat();
-                capture.Read(m);
-                pictureBox7.Image = m.ToBitmap();
-
-                TotalFrame = (int)capture.Get(CapProp.FrameCount);
-                Fps = capture.Get(CapProp.Fps);
-                FrameNo = 1;
-                numericUpDown1.Value = FrameNo;
-                numericUpDown1.Minimum = 0;
-                numericUpDown1.Maximum = TotalFrame;
-
-                if (capture == null)
-                {
-                    return;
-                }
-                IsReadingFrame = true;
-                ReadAllFrames();
-
+                pictureBox2.Image = listImagesReturn[i];
+                await Task.Delay(1000 / Convert.ToInt16(Fps_val));
             }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-
         }
 
         private async void ReadAllFrames()

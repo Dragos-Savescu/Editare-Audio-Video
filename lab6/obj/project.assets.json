@@ -916,20 +916,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Student\\.nuget\\packages\\": {}
+    "C:\\Users\\Dragos\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Student\\Desktop\\Savescu Dragos\\lab6\\lab6\\lab6.csproj",
+      "projectUniqueName": "C:\\Users\\Dragos\\Desktop\\PROIECT BARGLAZAN\\Editare-Audio-Video\\lab6\\lab6.csproj",
       "projectName": "lab6",
-      "projectPath": "C:\\Users\\Student\\Desktop\\Savescu Dragos\\lab6\\lab6\\lab6.csproj",
-      "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Student\\Desktop\\Savescu Dragos\\lab6\\lab6\\obj\\",
+      "projectPath": "C:\\Users\\Dragos\\Desktop\\PROIECT BARGLAZAN\\Editare-Audio-Video\\lab6\\lab6.csproj",
+      "packagesPath": "C:\\Users\\Dragos\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Dragos\\Desktop\\PROIECT BARGLAZAN\\Editare-Audio-Video\\lab6\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "C:\\Users\\Student\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Dragos\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
